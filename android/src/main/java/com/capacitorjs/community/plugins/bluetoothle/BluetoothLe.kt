@@ -817,7 +817,11 @@ class BluetoothLe : Plugin() {
             call.reject("Invalid scan mode.")
             return null
         }
-        scanSettings.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
+        scanSettings.setReportDelay(0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scanSettings.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
+            scanSettings.setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
+        }
         return scanSettings.build()
     }
 
